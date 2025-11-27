@@ -2,313 +2,562 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>카페인 반감기 계산기</title>
+  <title>잔류 카페인 계산기</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --bg: #f3f4f6;
+      --card-border: #e5e7eb;
+      --card-shadow: rgba(15,23,42,0.06);
+      --accent: #2563eb;
+      --accent-soft: #e0edff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+    }
+
+    * { box-sizing:border-box; }
+
     body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f5f5;
+      margin:0;
+      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      background: radial-gradient(circle at top, #e0edff 0, #f9fafb 55%);
+      color: var(--text-main);
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
     }
+
+    .app-shell{
+      width:100%;
+      max-width:960px;
+      padding:24px 16px 32px;
+    }
+
     .app {
-      max-width: 900px;
-      margin: 24px auto;
-      padding: 16px;
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      background:#ffffff;
+      border-radius:24px;
+      padding:1px;
+      box-shadow:0 20px 40px var(--card-shadow);
+      border:1px solid var(--card-border);
     }
-    h1 {
-      font-size: 1.6rem;
-      margin-top: 0;
-      margin-bottom: 4px;
+
+    .app-inner{
+      border-radius:23px;
+      background:linear-gradient(135deg,#ffffff 0%,#ffffff 60%,#f3f4ff 100%);
+      padding:20px 20px 18px;
     }
-    .subtitle {
-      color: #555;
-      font-size: 0.9rem;
-      margin-bottom: 16px;
+
+    h1{
+      margin:0;
+      font-size:1.7rem;
+      letter-spacing:-0.03em;
     }
-    .section-title {
-      font-weight: 600;
-      margin-top: 16px;
-      margin-bottom: 8px;
+
+    .header-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-end;
     }
-    label {
-      font-size: 0.85rem;
-      margin-right: 8px;
+
+    .subtitle{
+      margin-top:4px;
+      font-size:0.9rem;
+      color:var(--text-muted);
     }
-    input[type="number"],
-    input[type="datetime-local"],
-    input[type="text"] {
-      padding: 6px 8px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 0.9rem;
+
+    .badge{
+      font-size:0.78rem;
+      padding:4px 10px;
+      border-radius:999px;
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      color:#1d4ed8;
+      white-space:nowrap;
     }
-    button {
-      border: none;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 0.9rem;
-      cursor: pointer;
+
+    .section{
+      margin-top:18px;
+      padding:12px 12px 10px;
+      border-radius:16px;
+      background:#f9fafb;
+      border:1px solid #e5e7eb;
     }
-    .btn-primary {
-      background: #0070f3;
-      color: white;
+
+    .section-title{
+      font-size:0.9rem;
+      font-weight:600;
+      color:#111827;
+      margin-bottom:8px;
+      display:flex;
+      align-items:center;
+      gap:6px;
     }
-    .btn-outline {
-      background: white;
-      border: 1px solid #ccc;
+    .section-title span.dot{
+      width:6px;height:6px;border-radius:999px;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(37,99,235,0.2);
     }
-    .dose-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 8px;
-      font-size: 0.9rem;
+
+    .picker-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
     }
-    .dose-table th,
-    .dose-table td {
-      padding: 6px 4px;
-      border-bottom: 1px solid #eee;
-      text-align: left;
+
+    select{
+      padding:6px 9px;
+      border-radius:10px;
+      border:1px solid #d1d5db;
+      background:#ffffff;
+      color:var(--text-main);
+      font-size:0.86rem;
+      min-width:80px;
+      outline:none;
+      appearance:none;
+      position:relative;
     }
-    .dose-table th {
-      font-weight: 600;
-      background: #fafafa;
+    select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(37,99,235,0.35);
     }
-    .dose-table td.actions {
-      text-align: right;
+
+    button{
+      border:0;
+      border-radius:999px;
+      padding:7px 14px;
+      font-size:0.85rem;
+      cursor:pointer;
+      transition:all .15s ease-out;
+      font-weight:500;
     }
-    .result-box {
-      margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: #f0f4ff;
-      font-size: 0.95rem;
+
+    .btn-primary{
+      background:linear-gradient(135deg,#3b82f6,#60a5fa);
+      color:white;
+      box-shadow:0 12px 25px rgba(37,99,235,0.25);
     }
-    .result-main {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 4px;
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 16px 35px rgba(37,99,235,0.35);
     }
-    .tag {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      margin-left: 4px;
+    .btn-primary:active{
+      transform:translateY(0);
+      box-shadow:0 8px 18px rgba(37,99,235,0.25);
     }
-    .tag-ok {
-      background: #e1fbe1;
-      color: #1c7c1c;
+
+    .btn-ghost{
+      background:#ffffff;
+      color:var(--text-main);
+      border:1px solid #d1d5db;
+      padding:5px 11px;
     }
-    .tag-warn {
-      background: #ffe6e6;
-      color: #c03535;
+    .btn-ghost:hover{
+      background:#eff6ff;
+      border-color:#93c5fd;
     }
-    .warn {
-      color: #c03535;
-      font-weight: 600;
+
+    .current-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:8px;
     }
-    .small {
-      font-size: 0.8rem;
-      color: #666;
+
+    .dose-header-row{
+      margin-top:16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
     }
-    @media (max-width: 600px) {
-      .dose-table th:nth-child(2),
-      .dose-table td:nth-child(2) {
-        display: none;
-      }
+    .dose-header-row-title{
+      font-size:0.9rem;
+      font-weight:600;
+      color:var(--text-muted);
+    }
+
+    .dose-table-wrap{
+      margin-top:8px;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid #e5e7eb;
+      background:#ffffff;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:0.86rem;
+    }
+
+    thead{
+      background:#f3f4f6;
+    }
+
+    thead th{
+      padding:8px 10px;
+      font-weight:500;
+      color:var(--text-muted);
+      border-bottom:1px solid #e5e7eb;
+      text-align:center;
+      letter-spacing:0.02em;
+    }
+
+    tbody tr{
+      border-bottom:1px solid #f3f4f6;
+    }
+
+    tbody tr:last-child{
+      border-bottom:none;
+    }
+
+    tbody td{
+      padding:7px 8px;
+      vertical-align:middle;
+    }
+
+    .dose-time-picker{
+      display:flex;
+      gap:6px;
+      justify-content:flex-start;
+      align-items:center;
+    }
+    .dose-time-picker select{
+      min-width:84px;
+      font-size:0.82rem;
+    }
+
+    .mg-cell{
+      text-align:center;
+    }
+
+    .mg-input-wrap{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:#f9fafb;
+      border:1px solid #d1d5db;
+    }
+
+    .mg-input-wrap input{
+      width:70px;
+      border:none;
+      background:transparent;
+      color:var(--text-main);
+      font-size:0.86rem;
+      text-align:right;
+      padding:0;
+      outline:none;
+    }
+
+    .mg-unit{
+      font-size:0.78rem;
+      color:var(--text-muted);
+    }
+
+    .result-box{
+      margin-top:18px;
+      border-radius:16px;
+      padding:14px 14px 12px;
+      background:var(--accent-soft);
+      border:1px solid #bfdbfe;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .result-value{
+      font-weight:600;
+      font-size:1.1rem;
+      letter-spacing:0.02em;
+    }
+
+    .pill{
+      font-size:0.8rem;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid #bfdbfe;
+      background:#ffffff;
+      color:#1d4ed8;
+      white-space:nowrap;
+    }
+
+    @media (max-width:720px){
+      .app-inner{ padding:16px 14px 14px; }
+      .header-row{ flex-direction:column; align-items:flex-start; }
+      .dose-time-picker{ flex-wrap:wrap; }
+      .dose-time-picker select{ flex:1 1 30%; min-width:0; }
+      .mg-input-wrap{ width:100%; justify-content:flex-end; }
+      tbody td:nth-child(3){ text-align:right; }
+      .result-box{ flex-direction:column; align-items:flex-start; }
     }
   </style>
 </head>
 <body>
-<div class="app">
-  <h1>카페인 반감기 계산기</h1>
-  <div class="subtitle">
-    반감기(기본 5시간)를 기준으로 현재 몸에 남아 있는 카페인 양을 계산하는 도구.
-  </div>
+<div class="app-shell">
+  <div class="app">
+    <div class="app-inner">
+      <div class="header-row">
+        <div>
+          <h1>잔류 카페인 계산기</h1>
+          <div class="subtitle">섭취한 카페인이 얼마나 남아있는지 계산합니다.</div>
+        </div>
+        <div class="badge">반감기 = 5시간으로 계산</div>
+      </div>
 
-  <div>
-    <span class="section-title">기본 설정</span><br />
-    <label>
-      반감기 (시간):
-      <input type="number" id="halfLife" value="5" min="1" step="0.5" />
-    </label>
-    <label>
-      계산 시각:
-      <input type="datetime-local" id="calcTime" />
-    </label>
-    <button class="btn-outline" id="setNowBtn">지금으로 설정</button>
-  </div>
+      <!-- 기준 시각 -->
+      <div class="section" style="margin-top:18px;">
+        <div class="section-title">
+          <span class="dot"></span>
+          <span>현재 시각 설정</span>
+        </div>
+        <div class="picker-row">
+          <select id="curYear"></select>
+          <select id="curMonth"></select>
+          <select id="curDay"></select>
+          <select id="curHour"></select>
+        </div>
+        <div class="current-actions">
+          <button class="btn-ghost" id="setNowBtn">현재 시각으로 설정</button>
+        </div>
+      </div>
 
-  <div>
-    <div class="section-title">카페인 섭취 기록</div>
-    <button class="btn-primary" id="addDoseBtn">+ 섭취 추가</button>
-    <table class="dose-table">
-      <thead>
-      <tr>
-        <th>섭취 시각</th>
-        <th>설명(선택)</th>
-        <th>용량 (mg)</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody id="doseTbody">
-      </tbody>
-    </table>
-    <div class="small">
-      예) 아메리카노 1잔 ≈ 150 mg, 에스프레소 1샷 ≈ 80 mg 정도로 잡아서 넣으면 됨.
-    </div>
-  </div>
+      <!-- 섭취 기록 -->
+      <div class="dose-header-row">
+        <div class="dose-header-row-title">카페인 섭취 기록</div>
+        <button class="btn-primary" id="addDoseBtn">+ 섭취 추가</button>
+      </div>
 
-  <div>
-    <button class="btn-primary" style="margin-top: 16px;" id="calcBtn">
-      남은 카페인 계산
-    </button>
+      <div class="dose-table-wrap">
+        <table class="dose-table">
+          <thead>
+          <tr>
+            <th style="text-align:left;padding-left:14px;">연/월/일 시</th>
+            <th>용량</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody id="doseTbody"></tbody>
+        </table>
+      </div>
 
-    <div class="result-box" id="resultBox" style="display:none;">
-      <div class="result-main" id="resultMain"></div>
-      <div id="resultDetail"></div>
-      <div class="small" style="margin-top:6px;">
-        * 일반적인 권장 상한은 건강한 성인 기준 하루 총 400 mg 정도로 알려져 있음.
-        이 도구는 참고용일 뿐이고, 의학적 조언을 대체하지 않아.
+      <!-- 결과 -->
+      <div class="result-box">
+        <div id="resultMain" class="result-value">잔류 카페인: 0mg</div>
+        <div class="pill">실제 건강 상태는 개인차가 크니 참고용으로만 사용하세요</div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  var SAFE_THRESHOLD = 400; // mg
+  const HALF_LIFE = 5;
 
-  function toLocalDateTimeValue(date) {
-    var offsetMs = date.getTimezoneOffset() * 60000;
-    var local = new Date(date.getTime() - offsetMs);
-    return local.toISOString().slice(0, 16);
+  function pad(n){return n<10?"0"+n:n;}
+
+  const ySel = document.getElementById("curYear");
+  const mSel = document.getElementById("curMonth");
+  const dSel = document.getElementById("curDay");
+  const hSel = document.getElementById("curHour");
+
+  function populateYearOptions(){
+    const now = new Date();
+    for(let y = now.getFullYear()-1; y <= now.getFullYear()+1; y++){
+      const op = document.createElement("option");
+      op.value = y;
+      op.text = y + "년";
+      ySel.appendChild(op);
+    }
   }
 
-  function setCalcTimeNow() {
-    var now = new Date();
-    document.getElementById("calcTime").value = toLocalDateTimeValue(now);
+  function populateMonthOptions(){
+    for(let m=1;m<=12;m++){
+      const op=document.createElement("option");
+      op.value=m; op.text=m+"월";
+      mSel.appendChild(op);
+    }
   }
 
-  function addDoseRow(defaultTime) {
-    var tbody = document.getElementById("doseTbody");
+  function populateDayOptions(year, month, selectedDay){
+    dSel.innerHTML="";
+    const last = new Date(year, month, 0).getDate();
+    for(let d=1; d<=last; d++){
+      const op=document.createElement("option");
+      op.value=d; op.text=d+"일";
+      if(d===selectedDay) op.selected=true;
+      dSel.appendChild(op);
+    }
+  }
 
-    var tr = document.createElement("tr");
+  function populateHourOptions(){
+    for(let h=0;h<24;h++){
+      const op=document.createElement("option");
+      op.value=h; op.text=pad(h)+"시";
+      hSel.appendChild(op);
+    }
+  }
 
-    var tdTime = document.createElement("td");
-    var timeInput = document.createElement("input");
-    timeInput.type = "datetime-local";
-    timeInput.value = defaultTime || document.getElementById("calcTime").value || toLocalDateTimeValue(new Date());
-    tdTime.appendChild(timeInput);
+  function setCurrentToNow(){
+    const now = new Date();
+    ySel.value = now.getFullYear();
+    mSel.value = now.getMonth()+1;
+    populateDayOptions(now.getFullYear(), now.getMonth()+1, now.getDate());
+    hSel.value = now.getHours();
+    autoCalc();
+  }
 
-    var tdDesc = document.createElement("td");
-    var descInput = document.createElement("input");
-    descInput.type = "text";
-    descInput.placeholder = "예: 아메리카노";
-    descInput.style.width = "100%";
-    tdDesc.appendChild(descInput);
+  function initCurrentPicker(){
+    populateYearOptions();
+    populateMonthOptions();
+    populateHourOptions();
+    setCurrentToNow();
 
-    var tdMg = document.createElement("td");
-    var mgInput = document.createElement("input");
-    mgInput.type = "number";
-    mgInput.min = "0";
-    mgInput.step = "10";
-    mgInput.placeholder = "mg";
-    mgInput.style.width = "90px";
-    tdMg.appendChild(mgInput);
+    ySel.onchange = () => {
+      const day = parseInt(dSel.value) || 1;
+      populateDayOptions(parseInt(ySel.value), parseInt(mSel.value), Math.min(day, new Date(parseInt(ySel.value), parseInt(mSel.value), 0).getDate()));
+      autoCalc();
+    };
+    mSel.onchange = () => {
+      const day = parseInt(dSel.value) || 1;
+      populateDayOptions(parseInt(ySel.value), parseInt(mSel.value), Math.min(day, new Date(parseInt(ySel.value), parseInt(mSel.value), 0).getDate()));
+      autoCalc();
+    };
+    dSel.onchange = autoCalc;
+    hSel.onchange = autoCalc;
 
-    var tdActions = document.createElement("td");
-    tdActions.className = "actions";
-    var delBtn = document.createElement("button");
-    delBtn.className = "btn-outline";
-    delBtn.textContent = "삭제";
-    delBtn.onclick = function () { tr.remove(); };
-    tdActions.appendChild(delBtn);
+    document.getElementById("setNowBtn").onclick = setCurrentToNow;
+  }
 
-    tr.appendChild(tdTime);
-    tr.appendChild(tdDesc);
-    tr.appendChild(tdMg);
-    tr.appendChild(tdActions);
+  function getNowDate(){
+    const y = parseInt(ySel.value);
+    const m = parseInt(mSel.value);
+    const d = parseInt(dSel.value);
+    const h = parseInt(hSel.value);
+    return new Date(`${y}-${pad(m)}-${pad(d)}T${pad(h)}:00`);
+  }
 
+  function addDoseRow(){
+    const tbody = document.getElementById("doseTbody");
+    const tr = document.createElement("tr");
     tbody.appendChild(tr);
+
+    tr.innerHTML = `
+      <td class="pick"></td>
+      <td class="mg-cell">
+        <div class="mg-input-wrap">
+          <input type="number" min="0" step="10" />
+          <span class="mg-unit">mg</span>
+        </div>
+      </td>
+      <td style="text-align:center;">
+        <button class="btn-ghost del">삭제</button>
+      </td>
+    `;
+
+    const baseDate = getNowDate();
+    createTimePickerForRow(tr, baseDate);
+
+    tr.querySelector(".del").onclick = () => { tr.remove(); autoCalc(); };
+    tr.querySelector("input").oninput = autoCalc;
+
+    autoCalc();
   }
 
-  function calculateCaffeine() {
-    var halfLife = parseFloat(document.getElementById("halfLife").value);
-    if (isNaN(halfLife) || halfLife <= 0) halfLife = 5;
+  function createTimePickerForRow(tr, date){
+    const td = tr.querySelector(".pick");
+    td.innerHTML = `
+      <div class="dose-time-picker">
+        <select class="y"></select>
+        <select class="m"></select>
+        <select class="d"></select>
+        <select class="h"></select>
+      </div>
+    `;
 
-    var calcTimeInput = document.getElementById("calcTime").value;
-    var calcTime = calcTimeInput ? new Date(calcTimeInput) : new Date();
-    if (isNaN(calcTime.getTime())) calcTime = new Date();
+    const ySelR = td.querySelector(".y");
+    const mSelR = td.querySelector(".m");
+    const dSelR = td.querySelector(".d");
+    const hSelR = td.querySelector(".h");
 
-    var lambda = Math.LN2 / halfLife;
-    var rows = document.querySelectorAll("#doseTbody tr");
-    var totalNow = 0;
-    var totalIntake = 0;
+    const curYear = new Date().getFullYear();
 
-    for (var i = 0; i < rows.length; i++) {
-      var inputs = rows[i].getElementsByTagName("input");
-      var t = new Date(inputs[0].value);
-      var mg = parseFloat(inputs[2].value);
-
-      if (isNaN(t.getTime()) || isNaN(mg) || mg <= 0) continue;
-
-      totalIntake += mg;
-
-      var diffMs = calcTime - t;
-      var diffHours = diffMs / 3600000;
-      if (diffHours < 0) continue;
-
-      var remaining = mg * Math.exp(-lambda * diffHours);
-      totalNow += remaining;
+    for(let y = curYear-1; y <= curYear+1; y++){
+      const op = document.createElement("option");
+      op.value = y;
+      op.text = y + "년";
+      if(y === date.getFullYear()) op.selected = true;
+      ySelR.appendChild(op);
     }
 
-    var resultBox = document.getElementById("resultBox");
-    var resultMain = document.getElementById("resultMain");
-    var resultDetail = document.getElementById("resultDetail");
-
-    resultBox.style.display = "block";
-    var roundedNow = Math.round(totalNow);
-    var roundedIntake = Math.round(totalIntake);
-
-    var tagHtml = "";
-    if (roundedNow > SAFE_THRESHOLD) {
-      tagHtml = '<span class="tag tag-warn">상한 초과 가능</span>';
-    } else if (roundedNow > SAFE_THRESHOLD * 0.75) {
-      tagHtml = '<span class="tag tag-warn">상한 근접</span>';
-    } else {
-      tagHtml = '<span class="tag tag-ok">상대적으로 여유</span>';
+    for(let m=1;m<=12;m++){
+      const op=document.createElement("option");
+      op.value=m; op.text=m+"월";
+      if(m===date.getMonth()+1) op.selected=true;
+      mSelR.appendChild(op);
     }
 
-    resultMain.innerHTML =
-      '현재 몸에 남은 카페인: <strong>' + roundedNow + ' mg</strong>' + tagHtml;
+    function loadDaysRow(selected){
+      dSelR.innerHTML="";
+      const year = parseInt(ySelR.value);
+      const month = parseInt(mSelR.value);
+      const last = new Date(year, month, 0).getDate();
+      for(let d=1; d<=last; d++){
+        const op=document.createElement("option");
+        op.value=d; op.text=d+"일";
+        if(d===selected) op.selected=true;
+        dSelR.appendChild(op);
+      }
+    }
+    loadDaysRow(date.getDate());
 
-    var detail =
-      '지금까지 섭취한 총량은 약 <strong>' +
-      roundedIntake +
-      ' mg</strong>이고, 반감기 ' +
-      halfLife.toFixed(1) +
-      '시간 기준으로 계산했어.';
-
-    if (roundedNow > SAFE_THRESHOLD) {
-      detail += '<br><span class="warn">일반적인 권장 상한(약 400 mg)을 넘어서 있으니까, 추가 섭취는 꽤 조심하는 게 좋겠다.</span>';
-    } else if (roundedNow > SAFE_THRESHOLD * 0.75) {
-      detail += '<br><span class="warn">상한에 꽤 가까워져 있어서, 오늘은 더 마시지 않는 쪽이 안전할 수 있어.</span>';
+    for(let h=0;h<24;h++){
+      const op=document.createElement("option");
+      op.value=h; op.text=pad(h)+"시";
+      if(h===date.getHours()) op.selected=true;
+      hSelR.appendChild(op);
     }
 
-    resultDetail.innerHTML = detail;
+    [ySelR,mSelR,dSelR,hSelR].forEach(sel => sel.onchange = autoCalc);
   }
 
-  // 초기화
-  setCalcTimeNow();
-  addDoseRow();
+  function autoCalc(){
+    const calcTime = getNowDate();
+    const rows = document.querySelectorAll("#doseTbody tr");
+    const lambda = Math.LN2 / HALF_LIFE;
 
-  document.getElementById("setNowBtn").onclick = setCalcTimeNow;
-  document.getElementById("addDoseBtn").onclick = function () { addDoseRow(); };
-  document.getElementById("calcBtn").onclick = calculateCaffeine;
+    let sumNow = 0;
+
+    rows.forEach(row => {
+      const td = row.querySelector(".pick");
+      const y = parseInt(td.querySelector(".y").value);
+      const m = parseInt(td.querySelector(".m").value);
+      const d = parseInt(td.querySelector(".d").value);
+      const h = parseInt(td.querySelector(".h").value);
+      const mg = parseFloat(row.querySelector("input").value);
+      if(!mg) return;
+
+      const t = new Date(`${y}-${pad(m)}-${pad(d)}T${pad(h)}:00`);
+      const diff = (calcTime - t) / 3600000;
+      if(diff >= 0){
+        sumNow += mg * Math.exp(-lambda * diff);
+      }
+    });
+
+    const left = Math.round(sumNow);
+    document.getElementById("resultMain").innerHTML =
+      `잔류 카페인: ${left}mg`;
+  }
+
+  initCurrentPicker();
+  autoCalc();
+  document.getElementById("addDoseBtn").onclick = addDoseRow;
 </script>
 </body>
 </html>
+
