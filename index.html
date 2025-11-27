@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>잔류 카페인 계산기</title>
+  <title>체내 잔류 카페인 계산기</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="icon.png" />
   <link rel="manifest" href="manifest.json" />
@@ -12,7 +12,7 @@
     :root {
       --bg: #f3f4f6;
       --card-border: #e5e7eb;
-      --card-shadow: rgba(15,23,42,0.06);
+      --card-shadow: rgba(15,23,42,0.15);
       --accent: #2563eb;
       --accent-soft: #e0edff;
       --text-main: #111827;
@@ -35,15 +35,15 @@
 
     .app-shell{
       width:100%;
-      max-width:960px;
-      padding:24px 16px 8px;
+      max-width:720px;
+      padding:18px 12px 72px;
     }
 
     .app {
       background:#ffffff;
       border-radius:24px;
-      padding:1px;
-      box-shadow:0 20px 40px var(--card-shadow);
+      padding:0px;
+      box-shadow:0 10px 50px var(--card-shadow);
       border:1px solid var(--card-border);
     }
 
@@ -99,7 +99,7 @@
     .section-title span.dot{
       width:6px;height:6px;border-radius:999px;
       background:var(--accent);
-      box-shadow:0 0 0 4px rgba(37,99,235,0.2);
+      box-shadow:0 0 0 3px rgba(37,99,235,0.2);
     }
 
     .picker-row{
@@ -139,11 +139,11 @@
     .btn-primary{
       background:linear-gradient(135deg,#3b82f6,#60a5fa);
       color:white;
-      box-shadow:0 12px 25px rgba(37,99,235,0.25);
+      box-shadow:0 8px 18px rgba(37,99,235,0.25);
     }
     .btn-primary:hover{
       transform:translateY(-1px);
-      box-shadow:0 16px 35px rgba(37,99,235,0.35);
+      box-shadow:0 12px 35px rgba(37,99,235,0.4);
     }
     .btn-primary:active{
       transform:translateY(0);
@@ -481,7 +481,7 @@
     <div class="app-inner">
       <div class="header-row">
         <div>
-          <h1>잔류 카페인 계산기</h1>
+          <h1>체내 잔류 카페인 계산기</h1>
           <div class="subtitle">이전에 섭취한 카페인이 체내에 얼마나 남아있을까요?<br>카페인 반감기에 기반하여 계산해보세요!</div>
         </div>
       </div>
@@ -499,7 +499,7 @@
           <select id="curHour"></select>
         </div>
         <div class="current-actions">
-          <button class="btn-ghost" id="setNowBtn">현재 시각으로 설정</button>
+          <button class="btn-ghost" id="setNowBtn">지금으로 설정</button>
         </div>
       </div>
 
@@ -541,8 +541,7 @@
 
     </div>
   </div>
-
-  <div class="half-life-note">*카페인 반감기는 5시간으로 계산되었습니다.<br>실제 카페인 반감기는 개인마다 차이가 있을 수 있습니다.<br> </div>
+  <div class="half-life-note">*카페인 반감기는 5시간으로 계산되었습니다.<br>실제 카페인 반감기는 개인마다 차이가 있을 수 있습니다.<br>&nbsp;</div>
 
   <div class="caffeine-section">
     <div class="caffeine-title">참고: 주요 음료 및 커피 제품의 카페인 함량 (추정치)</div>
@@ -596,7 +595,7 @@
           <td colspan="3" style="text-align: center;">캔 커피</td>
         </tr>
         <tr>
-          <td>조지아 마운틴블랜드</td>
+          <td>조지아 마운틴블렌드</td>
           <td>270&nbsp;ml</td>
           <td>160&nbsp;mg</td>
         </tr>
@@ -623,22 +622,22 @@
         <tr>
           <td>Short</td>
           <td>8oz</td>
-          <td>약 75&nbsp;mg</td>
+          <td>75&nbsp;mg</td>
         </tr>
         <tr>
           <td>Tall</td>
           <td>12oz</td>
-          <td>약 150&nbsp;mg</td>
+          <td>150&nbsp;mg</td>
         </tr>
         <tr>
           <td>Grande</td>
           <td>16oz</td>
-          <td>약 225&nbsp;mg</td>
+          <td>225&nbsp;mg</td>
         </tr>
         <tr>
           <td>Venti</td>
           <td>20oz</td>
-          <td>약 300&nbsp;mg</td>
+          <td>300&nbsp;mg</td>
         </tr>
 
         <!-- 스타벅스 라떼 -->
@@ -648,22 +647,22 @@
         <tr>
           <td>Short</td>
           <td>8oz</td>
-          <td>약 75&nbsp;mg</td>
+          <td>75&nbsp;mg</td>
         </tr>
         <tr>
           <td>Tall</td>
           <td>12oz</td>
-          <td>약 75&nbsp;mg</td>
+          <td>75&nbsp;mg</td>
         </tr>
         <tr>
           <td>Grande</td>
           <td>16oz</td>
-          <td>약 150&nbsp;mg</td>
+          <td>150&nbsp;mg</td>
         </tr>
         <tr>
           <td>Venti</td>
           <td>20oz</td>
-          <td>약 150&nbsp;mg</td>
+          <td>150&nbsp;mg</td>
         </tr>
         </tbody>
       </table>
@@ -672,7 +671,7 @@
     </div>
   </div>
 
-  <div class="signature">만든이: 연세대학교 QRM 25 박규혁<br>버전: 1.0<br></div>
+  <div class="signature">만든이: 연세대학교 QRM 25 박규혁<br>문의: ghpark0226@gmail.com<br>버전: 1.0<br></div>
 </div>
 
 <script>
