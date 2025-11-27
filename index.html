@@ -26,12 +26,13 @@
       display:flex;
       justify-content:center;
       align-items:flex-start;
+      font-size:16px;
     }
 
     .app-shell{
       width:100%;
       max-width:960px;
-      padding:24px 16px 32px;
+      padding:24px 16px 8px;
     }
 
     .app {
@@ -48,9 +49,16 @@
       padding:20px 20px 18px;
     }
 
+    .half-life-note {
+      margin-top:6px;
+      font-size:0.85rem;
+      color:var(--text-muted);
+      text-align:center;
+    }
+
     h1{
       margin:0;
-      font-size:1.7rem;
+      font-size:1.8rem;
       letter-spacing:-0.03em;
     }
 
@@ -63,18 +71,8 @@
 
     .subtitle{
       margin-top:4px;
-      font-size:0.9rem;
-      color:var(--text-muted);
-    }
-
-    .badge{
-      font-size:0.78rem;
-      padding:4px 10px;
-      border-radius:999px;
-      background:#eff6ff;
-      border:1px solid #bfdbfe;
-      color:#1d4ed8;
-      white-space:nowrap;
+      font-size:0.95rem;
+      color:#6b7280;
     }
 
     .section{
@@ -86,7 +84,7 @@
     }
 
     .section-title{
-      font-size:0.9rem;
+      font-size:0.95rem;
       font-weight:600;
       color:#111827;
       margin-bottom:8px;
@@ -108,12 +106,12 @@
     }
 
     select{
-      padding:6px 9px;
+      padding:7px 10px;
       border-radius:10px;
       border:1px solid #d1d5db;
       background:#ffffff;
       color:var(--text-main);
-      font-size:0.86rem;
+      font-size:16px;
       min-width:80px;
       outline:none;
       appearance:none;
@@ -127,8 +125,8 @@
     button{
       border:0;
       border-radius:999px;
-      padding:7px 14px;
-      font-size:0.85rem;
+      padding:8px 15px;
+      font-size:15px;
       cursor:pointer;
       transition:all .15s ease-out;
       font-weight:500;
@@ -152,7 +150,7 @@
       background:#ffffff;
       color:var(--text-main);
       border:1px solid #d1d5db;
-      padding:5px 11px;
+      padding:6px 12px;
     }
     .btn-ghost:hover{
       background:#eff6ff;
@@ -174,9 +172,9 @@
       gap:10px;
     }
     .dose-header-row-title{
-      font-size:0.9rem;
+      font-size:0.95rem;
       font-weight:600;
-      color:var(--text-muted);
+      color:#6b7280;
     }
 
     .dose-table-wrap{
@@ -187,34 +185,34 @@
       background:#ffffff;
     }
 
-    table{
+    .dose-table{
       width:100%;
       border-collapse:collapse;
-      font-size:0.86rem;
+      font-size:0.9rem;
     }
 
-    thead{
+    .dose-table thead{
       background:#f3f4f6;
     }
 
-    thead th{
+    .dose-table thead th{
       padding:8px 10px;
       font-weight:500;
-      color:var(--text-muted);
+      color:#6b7280;
       border-bottom:1px solid #e5e7eb;
       text-align:center;
       letter-spacing:0.02em;
     }
 
-    tbody tr{
+    .dose-table tbody tr{
       border-bottom:1px solid #f3f4f6;
     }
 
-    tbody tr:last-child{
+    .dose-table tbody tr:last-child{
       border-bottom:none;
     }
 
-    tbody td{
+    .dose-table tbody td{
       padding:7px 8px;
       vertical-align:middle;
     }
@@ -227,7 +225,7 @@
     }
     .dose-time-picker select{
       min-width:84px;
-      font-size:0.82rem;
+      font-size:16px;
     }
 
     .mg-cell{
@@ -249,14 +247,14 @@
       border:none;
       background:transparent;
       color:var(--text-main);
-      font-size:0.86rem;
+      font-size:16px;
       text-align:right;
       padding:0;
       outline:none;
     }
 
     .mg-unit{
-      font-size:0.78rem;
+      font-size:0.8rem;
       color:var(--text-muted);
     }
 
@@ -278,24 +276,132 @@
       letter-spacing:0.02em;
     }
 
-    .pill{
+    /* 타임라인 */
+    .timeline-section{
+      margin-top:18px;
+      padding:12px;
+      border-radius:16px;
+      background:#f9fafb;
+      border:1px solid #e5e7eb;
+      position:relative; /* floating date용 기준 */
+    }
+    .timeline-wrap{
+      margin-top:8px;
+      overflow-x:auto;
+      padding-bottom:4px;
+    }
+    .timeline-table{
+      border-collapse:collapse;
+      min-width:760px;
       font-size:0.8rem;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid #bfdbfe;
-      background:#ffffff;
-      color:#1d4ed8;
+    }
+    .timeline-table th,
+    .timeline-table td{
+      border:1px solid #e5e7eb;
+      padding:4px 6px;
+      text-align:center;
       white-space:nowrap;
+    }
+    .timeline-table th{
+      background:#f3f4f6;
+      font-weight:500;
+      color:#6b7280;
+    }
+    .timeline-row-label{
+      position:sticky;
+      left:0;
+      background:#f9fafb;
+      font-weight:500;
+      min-width:70px;
+      text-align:left;
+      padding-left:6px;
+      z-index:3;
+    }
+    .timeline-date-cell{
+      background:#f3f4f6;
+    }
+    .timeline-cell{
+      min-width:34px;
+      font-variant-numeric:tabular-nums;
+      color:#111827;
+    }
+    .timeline-empty{
+      font-size:0.85rem;
+      color:#9ca3af;
+      padding:6px 0 2px;
+    }
+
+    /* 떠 있는 날짜 라벨 */
+    .timeline-floating-date{
+      position:absolute;
+      top:34px;     /* 시간 헤더 행과 비슷한 높이 */
+      left:16px;
+      padding:2px 10px;
+      border-radius:999px;
+      background:#e5e7eb;
+      font-size:0.75rem;
+      color:#374151;
+      pointer-events:none;
+      z-index:5;
+      display:none;
+    }
+
+    /* 모바일 */
+    .cell-label-mobile{
+      display:none;
+      font-size:0.8rem;
+      color:#6b7280;
+      margin-bottom:4px;
     }
 
     @media (max-width:720px){
       .app-inner{ padding:16px 14px 14px; }
-      .header-row{ flex-direction:column; align-items:flex-start; }
-      .dose-time-picker{ flex-wrap:wrap; }
-      .dose-time-picker select{ flex:1 1 30%; min-width:0; }
-      .mg-input-wrap{ width:100%; justify-content:flex-end; }
-      tbody td:nth-child(3){ text-align:right; }
-      .result-box{ flex-direction:column; align-items:flex-start; }
+
+      /* 섭취 기록만 카드 형태 */
+      .dose-table thead{ display:none; }
+
+      .dose-table tbody tr{
+        display:block;
+        padding:8px 10px;
+        border-bottom:1px solid #e5e7eb;
+      }
+
+      .dose-table tbody td{
+        display:block;
+        padding:4px 0;
+      }
+
+      .dose-time-picker{
+        flex-wrap:wrap;
+      }
+
+      .dose-time-picker select{
+        flex:1 1 45%;
+        min-width:0;
+      }
+
+      .cell-label-mobile{
+        display:block;
+      }
+
+      .mg-cell{
+        text-align:left;
+      }
+
+      .mg-input-wrap{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .result-box{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .timeline-table{
+        font-size:0.75rem;
+        min-width:640px;
+      }
     }
   </style>
 </head>
@@ -306,16 +412,15 @@
       <div class="header-row">
         <div>
           <h1>잔류 카페인 계산기</h1>
-          <div class="subtitle">섭취한 카페인이 얼마나 남아있는지 계산합니다.</div>
+          <div class="subtitle">섭취한 카페인이 얼마나 남아있을지 계산합니다.</div>
         </div>
-        <div class="badge">반감기 = 5시간으로 계산</div>
       </div>
 
       <!-- 기준 시각 -->
       <div class="section" style="margin-top:18px;">
         <div class="section-title">
           <span class="dot"></span>
-          <span>현재 시각 설정</span>
+          <span>기준 시각</span>
         </div>
         <div class="picker-row">
           <select id="curYear"></select>
@@ -349,15 +454,31 @@
 
       <!-- 결과 -->
       <div class="result-box">
-        <div id="resultMain" class="result-value">잔류 카페인: 0mg</div>
-        <div class="pill">실제 건강 상태는 개인차가 크니 참고용으로만 사용하세요</div>
+        <div id="resultMain" class="result-value">잔류 카페인: 0</div>
       </div>
+
+      <!-- 타임라인 -->
+      <div class="timeline-section">
+        <div class="section-title" style="margin-top:0;">
+          <span class="dot"></span>
+          <span>시간대별 잔류 카페인 타임라인</span>
+        </div>
+        <div class="timeline-wrap" id="timelineWrap">
+          <div class="timeline-empty">카페인 섭취를 추가하면 시간대별 타임라인이 표시됩니다.</div>
+        </div>
+        <div class="timeline-floating-date" id="timelineFloatingDate"></div>
+      </div>
+
     </div>
   </div>
+
+  <div class="half-life-note">카페인 반감기 = 5시간으로 계산</div>
 </div>
 
 <script>
   const HALF_LIFE = 5;
+  const SAFE_LEVEL = 400;
+  const THRESHOLD = 0.5; // 이 이하로 내려가면 0으로 간주
 
   function pad(n){return n<10?"0"+n:n;}
 
@@ -367,8 +488,7 @@
   const hSel = document.getElementById("curHour");
 
   function populateYearOptions(){
-    const now = new Date();
-    for(let y = now.getFullYear()-1; y <= now.getFullYear()+1; y++){
+    for(let y = 2025; y <= 2030; y++){
       const op = document.createElement("option");
       op.value = y;
       op.text = y + "년";
@@ -403,12 +523,20 @@
     }
   }
 
+  function clampYearToRange(year){
+    if(year < 2025) return 2025;
+    if(year > 2030) return 2030;
+    return year;
+  }
+
   function setCurrentToNow(){
     const now = new Date();
-    ySel.value = now.getFullYear();
-    mSel.value = now.getMonth()+1;
-    populateDayOptions(now.getFullYear(), now.getMonth()+1, now.getDate());
-    hSel.value = now.getHours();
+    const year = clampYearToRange(now.getFullYear());
+
+    ySel.value = year.toString();
+    mSel.value = (now.getMonth()+1).toString();
+    populateDayOptions(year, now.getMonth()+1, now.getDate());
+    hSel.value = now.getHours().toString();
     autoCalc();
   }
 
@@ -419,13 +547,17 @@
     setCurrentToNow();
 
     ySel.onchange = () => {
+      const year = parseInt(ySel.value);
+      const month = parseInt(mSel.value);
       const day = parseInt(dSel.value) || 1;
-      populateDayOptions(parseInt(ySel.value), parseInt(mSel.value), Math.min(day, new Date(parseInt(ySel.value), parseInt(mSel.value), 0).getDate()));
+      populateDayOptions(year, month, Math.min(day, new Date(year, month, 0).getDate()));
       autoCalc();
     };
     mSel.onchange = () => {
+      const year = parseInt(ySel.value);
+      const month = parseInt(mSel.value);
       const day = parseInt(dSel.value) || 1;
-      populateDayOptions(parseInt(ySel.value), parseInt(mSel.value), Math.min(day, new Date(parseInt(ySel.value), parseInt(mSel.value), 0).getDate()));
+      populateDayOptions(year, month, Math.min(day, new Date(year, month, 0).getDate()));
       autoCalc();
     };
     dSel.onchange = autoCalc;
@@ -439,7 +571,9 @@
     const m = parseInt(mSel.value);
     const d = parseInt(dSel.value);
     const h = parseInt(hSel.value);
-    return new Date(`${y}-${pad(m)}-${pad(d)}T${pad(h)}:00`);
+    const dt = new Date(`${y}-${pad(m)}-${pad(d)}T${pad(h)}:00`);
+    dt.setMinutes(0,0,0);
+    return dt;
   }
 
   function addDoseRow(){
@@ -448,8 +582,11 @@
     tbody.appendChild(tr);
 
     tr.innerHTML = `
-      <td class="pick"></td>
+      <td class="pick">
+        <div class="cell-label-mobile">연/월/일 시</div>
+      </td>
       <td class="mg-cell">
+        <div class="cell-label-mobile">용량</div>
         <div class="mg-input-wrap">
           <input type="number" min="0" step="10" />
           <span class="mg-unit">mg</span>
@@ -471,27 +608,26 @@
 
   function createTimePickerForRow(tr, date){
     const td = tr.querySelector(".pick");
-    td.innerHTML = `
-      <div class="dose-time-picker">
-        <select class="y"></select>
-        <select class="m"></select>
-        <select class="d"></select>
-        <select class="h"></select>
-      </div>
+    const wrap = document.createElement("div");
+    wrap.className = "dose-time-picker";
+    wrap.innerHTML = `
+      <select class="y"></select>
+      <select class="m"></select>
+      <select class="d"></select>
+      <select class="h"></select>
     `;
+    td.appendChild(wrap);
 
-    const ySelR = td.querySelector(".y");
-    const mSelR = td.querySelector(".m");
-    const dSelR = td.querySelector(".d");
-    const hSelR = td.querySelector(".h");
+    const ySelR = wrap.querySelector(".y");
+    const mSelR = wrap.querySelector(".m");
+    const dSelR = wrap.querySelector(".d");
+    const hSelR = wrap.querySelector(".h");
 
-    const curYear = new Date().getFullYear();
-
-    for(let y = curYear-1; y <= curYear+1; y++){
+    for(let y = 2025; y <= 2030; y++){
       const op = document.createElement("option");
       op.value = y;
       op.text = y + "년";
-      if(y === date.getFullYear()) op.selected = true;
+      if(y === clampYearToRange(date.getFullYear())) op.selected = true;
       ySelR.appendChild(op);
     }
 
@@ -507,10 +643,11 @@
       const year = parseInt(ySelR.value);
       const month = parseInt(mSelR.value);
       const last = new Date(year, month, 0).getDate();
+      const daySafe = Math.min(selected, last);
       for(let d=1; d<=last; d++){
         const op=document.createElement("option");
         op.value=d; op.text=d+"일";
-        if(d===selected) op.selected=true;
+        if(d===daySafe) op.selected=true;
         dSelR.appendChild(op);
       }
     }
@@ -526,32 +663,268 @@
     [ySelR,mSelR,dSelR,hSelR].forEach(sel => sel.onchange = autoCalc);
   }
 
-  function autoCalc(){
-    const calcTime = getNowDate();
+  function collectDoses(){
     const rows = document.querySelectorAll("#doseTbody tr");
-    const lambda = Math.LN2 / HALF_LIFE;
-
-    let sumNow = 0;
-
+    const doses = [];
     rows.forEach(row => {
       const td = row.querySelector(".pick");
-      const y = parseInt(td.querySelector(".y").value);
-      const m = parseInt(td.querySelector(".m").value);
-      const d = parseInt(td.querySelector(".d").value);
-      const h = parseInt(td.querySelector(".h").value);
+      if(!td) return;
+      const yEl = td.querySelector(".y");
+      const mEl = td.querySelector(".m");
+      const dEl = td.querySelector(".d");
+      const hEl = td.querySelector(".h");
+      if(!yEl || !mEl || !dEl || !hEl) return;
+
+      const y = parseInt(yEl.value);
+      const m = parseInt(mEl.value);
+      const d = parseInt(dEl.value);
+      const h = parseInt(hEl.value);
       const mg = parseFloat(row.querySelector("input").value);
-      if(!mg) return;
+      if(!mg || isNaN(mg)) return;
 
       const t = new Date(`${y}-${pad(m)}-${pad(d)}T${pad(h)}:00`);
-      const diff = (calcTime - t) / 3600000;
+      t.setMinutes(0,0,0);
+      doses.push({time: t, mg});
+    });
+    return doses;
+  }
+
+  // 색: 0~20 => 흰색, 20~400 사이 점점 진해짐, 400 이상 고정
+  function colorFor(v){
+    if(v <= 20 || isNaN(v)) return 'rgb(255,255,255)';
+    const capped = Math.min(v, SAFE_LEVEL);
+    const t = (capped - 20) / (SAFE_LEVEL - 20); // 0~1
+    const baseR = 235, baseG = 243, baseB = 255;
+    const darkR = 90,  darkG = 130, darkB = 220;
+    const r = Math.round(baseR + (darkR - baseR) * t);
+    const g = Math.round(baseG + (darkG - baseG) * t);
+    const b = Math.round(baseB + (darkB - baseB) * t);
+    return `rgb(${r},${g},${b})`;
+  }
+
+  // floating date 업데이트
+  function updateFloatingDate(dateGroups, slots){
+    const wrap = document.getElementById('timelineWrap');
+    const table = wrap.querySelector('.timeline-table');
+    const float = document.getElementById('timelineFloatingDate');
+    if(!wrap || !table || !float || !dateGroups || !dateGroups.length) return;
+
+    const wrapRect = wrap.getBoundingClientRect();
+    const headerRows = table.querySelectorAll('thead tr');
+    if(headerRows.length < 2) return;
+    const dateRow = headerRows[0];
+    const timeRow = headerRows[1];
+
+    const dateCells = Array.from(dateRow.querySelectorAll('.timeline-date-cell'));
+    const timeCells = Array.from(timeRow.querySelectorAll('th')).slice(1); // 첫 th는 "행"
+
+    let chosenLabel = null;
+    let chosenSide = 'left';
+
+    for(let i=0;i<dateGroups.length;i++){
+      const g = dateGroups[i];
+      const startIdx = g.startIndex;
+      const endIdx = g.startIndex + g.count - 1;
+      const dateCell = dateCells[i];
+      if(!dateCell) continue;
+
+      const dateRect = dateCell.getBoundingClientRect();
+
+      // 날짜 헤더가 화면 안에 보이는 경우: 떠 있는 라벨 사용 X
+      const dateVisible = dateRect.right > wrapRect.left && dateRect.left < wrapRect.right;
+      if(dateVisible){
+        chosenLabel = null;
+        break;
+      }
+
+      const firstTh = timeCells[startIdx];
+      const lastTh  = timeCells[endIdx];
+      if(!firstTh || !lastTh) continue;
+      const firstRect = firstTh.getBoundingClientRect();
+      const lastRect  = lastTh.getBoundingClientRect();
+
+      const visible = lastRect.left < wrapRect.right && firstRect.right > wrapRect.left;
+      if(!visible) continue;
+
+      // 이 날짜 구간은 현재 화면에 보이지만, 날짜 셀은 이미 왼/오로 나감
+      chosenLabel = `${g.date.getMonth()+1}/${g.date.getDate()}`;
+      if(dateRect.right <= wrapRect.left){
+        chosenSide = 'left';
+      }else if(dateRect.left >= wrapRect.right){
+        chosenSide = 'right';
+      }else{
+        chosenSide = 'left';
+      }
+      break;
+    }
+
+    if(chosenLabel){
+      float.textContent = chosenLabel;
+      float.style.display = 'inline-block';
+      if(chosenSide === 'left'){
+        float.style.left = '16px';
+        float.style.right = 'auto';
+      }else{
+        float.style.left = 'auto';
+        float.style.right = '16px';
+      }
+    }else{
+      float.style.display = 'none';
+    }
+  }
+
+  function buildTimeline(doses){
+    const wrapper = document.getElementById("timelineWrap");
+    if(!doses.length){
+      wrapper.innerHTML = '<div class="timeline-empty">카페인 섭취를 추가하면 시간대별 타임라인이 표시됩니다.</div>';
+      const float = document.getElementById('timelineFloatingDate');
+      if(float) float.style.display='none';
+      return;
+    }
+
+    const lambda = Math.LN2 / HALF_LIFE;
+
+    // 시작 시각: 가장 이른 섭취 시각의 시 단위 내림
+    let minTime = doses[0].time;
+    doses.forEach(d=>{
+      if(d.time < minTime) minTime = d.time;
+    });
+    const start = new Date(minTime.getTime());
+    start.setMinutes(0,0,0);
+
+    // 끝 시각: 각 섭취가 THRESHOLD 이하로 떨어지는 마지막 시각들 중 최댓값
+    let maxTime = doses[0].time;
+    doses.forEach(d=>{
+      const mg = d.mg;
+      if(mg <= THRESHOLD) return;
+      const tHours = Math.log(mg / THRESHOLD) / lambda;
+      const candidate = new Date(d.time.getTime() + tHours * 3600000);
+      if(candidate > maxTime) maxTime = candidate;
+    });
+    const end = new Date(maxTime.getTime());
+    end.setMinutes(0,0,0);
+    if(end.getTime() < maxTime.getTime()){
+      end.setHours(end.getHours()+1);
+    }
+
+    // 슬롯 (1시간 간격)
+    const slots = [];
+    for(let t = new Date(start.getTime()); t.getTime() <= end.getTime(); t.setHours(t.getHours()+1)){
+      slots.push(new Date(t.getTime()));
+    }
+
+    // 날짜 그룹 (startIndex 포함)
+    const dateGroups = [];
+    let curKey = null, curCount = 0, curDate = null, startIndex = 0;
+    slots.forEach((t,idx)=>{
+      const key = `${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}`;
+      if(key !== curKey){
+        if(curKey !== null){
+          dateGroups.push({key:curKey,count:curCount,date:curDate,startIndex:startIndex});
+        }
+        curKey = key;
+        curCount = 1;
+        curDate = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+        startIndex = idx;
+      }else{
+        curCount++;
+      }
+    });
+    if(curKey !== null){
+      dateGroups.push({key:curKey,count:curCount,date:curDate,startIndex:startIndex});
+    }
+
+    // per-dose & total
+    const perDoseValues = [];
+    const totalValues = new Array(slots.length).fill(0);
+
+    doses.forEach((dose, idx)=>{
+      perDoseValues[idx] = [];
+      slots.forEach((slot, i)=>{
+        const diff = (slot - dose.time)/3600000;
+        let val = 0;
+        if(diff >= 0){
+          val = dose.mg * Math.exp(-lambda * diff);
+        }
+        if(val < THRESHOLD) val = 0;
+        perDoseValues[idx][i] = val;
+        totalValues[i] += val;
+      });
+    });
+
+    // 테이블 HTML
+    let html = '<table class="timeline-table"><thead>';
+
+    // 날짜 행
+    html += '<tr>';
+    html += '<th class="timeline-row-label"></th>';
+    dateGroups.forEach(g=>{
+      const d = g.date;
+      const label = `${d.getMonth()+1}/${d.getDate()}`;
+      html += `<th class="timeline-date-cell" colspan="${g.count}" data-start="${g.startIndex}" data-end="${g.startIndex+g.count-1}">${label}</th>`;
+    });
+    html += '</tr>';
+
+    // 시간 행
+    html += '<tr>';
+    html += '<th class="timeline-row-label">행</th>';
+    slots.forEach((s)=>{
+      html += `<th>${s.getHours()}시</th>`;
+    });
+    html += '</tr></thead><tbody>';
+
+    // 합계 행
+    html += '<tr>';
+    html += '<td class="timeline-row-label">합계</td>';
+    totalValues.forEach((v)=>{
+      const bg = colorFor(v);
+      const val = Math.round(v);
+      html += `<td class="timeline-cell" style="background:${bg};">${val}</td>`;
+    });
+    html += '</tr>';
+
+    // 개별 섭취 행
+    doses.forEach((dose, idx)=>{
+      html += '<tr>';
+      html += `<td class="timeline-row-label">섭취 ${idx+1}</td>`;
+      perDoseValues[idx].forEach((v)=>{
+        const bg = colorFor(v);
+        const val = Math.round(v);
+        html += `<td class="timeline-cell" style="background:${bg};">${val}</td>`;
+      });
+      html += '</tr>';
+    });
+
+    html += '</tbody></table>';
+    wrapper.innerHTML = html;
+
+    const wrapEl = document.getElementById('timelineWrap');
+    const onScroll = () => updateFloatingDate(dateGroups, slots);
+    wrapEl.onscroll = onScroll;
+    // 초기 상태에서도 한 번 업데이트
+    updateFloatingDate(dateGroups, slots);
+  }
+
+  function autoCalc(){
+    const lambda = Math.LN2 / HALF_LIFE;
+    const doses = collectDoses();
+    const calcTime = getNowDate();
+
+    let sumNow = 0;
+    doses.forEach(d=>{
+      const diff = (calcTime - d.time) / 3600000;
       if(diff >= 0){
-        sumNow += mg * Math.exp(-lambda * diff);
+        let val = d.mg * Math.exp(-lambda * diff);
+        if(val < THRESHOLD) val = 0;
+        sumNow += val;
       }
     });
 
     const left = Math.round(sumNow);
     document.getElementById("resultMain").innerHTML =
-      `잔류 카페인: ${left}mg`;
+      `잔류 카페인: ${left}`;
+
+    buildTimeline(doses);
   }
 
   initCurrentPicker();
@@ -560,4 +933,3 @@
 </script>
 </body>
 </html>
-
